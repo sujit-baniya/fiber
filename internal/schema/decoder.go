@@ -59,9 +59,7 @@ func (d *Decoder) RegisterConverter(value interface{}, converterFunc Converter) 
 	d.cache.registerConverter(value, converterFunc)
 }
 
-// Decode decodes a map[string][]string to a struct.
-//
-// The first parameter must be a pointer to a struct.
+// Decode decodes a map[string][]string to a struct or map.
 //
 // The second parameter is a map, typically url.Values from an HTTP request.
 // Keys are "paths" in dotted notation to the struct fields and nested structs.
@@ -69,8 +67,8 @@ func (d *Decoder) RegisterConverter(value interface{}, converterFunc Converter) 
 // See the package documentation for a full explanation of the mechanics.
 func (d *Decoder) Decode(dst interface{}, src map[string][]string) error {
 	v := reflect.ValueOf(dst)
-	if v.Kind() != reflect.Ptr || v.Elem().Kind() != reflect.Struct {
-		return errors.New("schema: interface must be a pointer to struct")
+	if v.Kind() != reflect.Ptr {
+		return errors.New("schema: interface must be a pointer")
 	}
 	v = v.Elem()
 	t := v.Type()
