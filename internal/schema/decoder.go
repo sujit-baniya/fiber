@@ -59,7 +59,7 @@ func (d *Decoder) RegisterConverter(value interface{}, converterFunc Converter) 
 	d.cache.registerConverter(value, converterFunc)
 }
 
-// Decode decodes a map[string][]string to a struct or map.
+// Decode - decodes a map[string][]string to a struct or map.
 //
 // The second parameter is a map, typically url.Values from an HTTP request.
 // Keys are "paths" in dotted notation to the struct fields and nested structs.
